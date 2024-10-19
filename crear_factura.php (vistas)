@@ -1,0 +1,50 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Facturas</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Lista de Facturas</h1>
+    <a href='../vistas/crear_factura.php'>Crear Nueva Factura</a><br><br>
+
+    <?php if (!empty($resultado)): ?>
+        <table>
+            <tr>
+                <th>ID Factura</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Método de Pago</th>
+                <th>Cantidad</th>
+                <th>Dirección de Entrega</th>
+                <th>Valor Unitario</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+            <?php foreach ($resultado as $fila): ?>
+                <tr>
+                    <td><?= htmlspecialchars($fila['id_factura']) ?></td>
+                    <td><?= htmlspecialchars($fila['nombres'] . ' ' . $fila['apellidos']) ?></td>
+                    <td><?= htmlspecialchars($fila['nombre_producto']) ?></td>
+                    <td><?= htmlspecialchars($fila['metodo_pago']) ?></td>
+                    <td><?= htmlspecialchars($fila['cantidad']) ?></td>
+                    <td><?= htmlspecialchars($fila['direccion_entrega']) ?></td>
+                    <td><?= htmlspecialchars($fila['valor_unitario']) ?></td>
+                    <td><?= htmlspecialchars($fila['total']) ?></td>
+                    <td>
+                        <a href='editar_factura.php?id=<?= $fila['id_factura'] ?>'>Editar</a> |
+                        <a href='eliminar_factura.php?id=<?= $fila['id_factura'] ?>' onclick='return confirm("¿Está seguro?");'>Eliminar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
+        <p>No se encontraron facturas.</p>
+    <?php endif; ?>
+</body>
+</html>
